@@ -1,12 +1,4 @@
-# OpenCV build script for NVIDIA Jetson Nano
-
-This is the Docker branch. A build is available
-[here on Docker Hub](https://hub.docker.com/r/mdegans/tegra-opencv).
-
-## Running pre-built image:
-```shell
-(sudo) docker run --runtime nvidia -it --rm mdegans/tegra-opencv:latest
-```
+# OpenCV build script for NVIDIA Jetson Xavier
 
 ## Building:
 
