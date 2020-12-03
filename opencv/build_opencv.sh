@@ -4,7 +4,7 @@
 set -ex
 
 # change default constants here:
-readonly PREFIX=/usr/local  # install prefix, (can be ~/.local for a user install)
+readonly PREFIX=/opt/opencv  # install prefix, (can be ~/.local for a user install)
 readonly BUILD_TMP=/tmp/build_opencv
 
 cleanup () {
@@ -12,17 +12,17 @@ cleanup () {
     rm -rf ${BUILD_TMP}
 
     echo "REMOVING build dependencies"
-    apt-get purge -y --autoremove \
-        gosu \
-        build-essential \
-        ca-certificates \
-        cmake \
-        git \
-        cuda-compiler-10-2 \
-        cuda-minimal-build-10-2 \
-        cuda-libraries-dev-10-2 \
-        libcudnn8-dev \
-        python3-dev
+    # apt-get purge -y --autoremove \
+    #     gosu \
+    #     build-essential \
+    #     ca-certificates \
+    #     cmake \
+    #     git \
+    #     cuda-compiler-10-2 \
+    #     cuda-minimal-build-10-2 \
+    #     cuda-libraries-dev-10-2 \
+    #     libcudnn8-dev \
+    #     python3-dev
     # there are probably more -dev packages that can be removed if the 
     # runtime packages are explicitly added below in install_dependencies
     # but the above ones I know offhand can be removed without breaking open_cv
@@ -54,59 +54,63 @@ setup () {
 git_source () {
     cd ${BUILD_TMP}
     echo "CLONING version '$1' of OpenCV"
-    gosu builder git clone --depth 1 --branch "$1" https://github.com/opencv/opencv.git
-    gosu builder git clone --depth 1 --branch "$1" https://github.com/opencv/opencv_contrib.git
+    # gosu builder git clone --depth 1 --branch "$1" https://github.com/opencv/opencv.git
+    # gosu builder git clone --depth 1 --branch "$1" https://github.com/opencv/opencv_contrib.git
+    gosu builder git clone -b ${OPENCV_VERSION} https://gitlab.qomolo.com/mirrors/opencv/opencv.git
+    gosu builder git clone -b ${OPENCV_VERSION} https://gitlab.qomolo.com/mirrors/opencv/opencv_contrib.git
+    gosu builder git clone -b ${OPENCV_VERSION} https://gitlab.qomolo.com/mirrors/opencv/opencv_3rdparty.git
 }
 
 install_dependencies () {
     # open-cv has a lot of dependencies, but most can be found in the default
     # package repository or should already be installed (eg. CUDA).
     echo "Installing build dependencies."
+    mkdir /opt/opencv
     # well, shit, they fixed it, so we do this to get the certs temporarily
-    mv /etc/apt/sources.list.d/nvidia-l4t-apt-source.list /etc/apt/
-    apt-get update && apt-get install -y --no-install-recommends \
-        ca-certificates
-    mv /etc/apt/nvidia-l4t-apt-source.list /etc/apt/sources.list.d
-    apt-get update && apt-get install -y --no-install-recommends \
-        gosu \
-        cuda-compiler-10-2 \
-        cuda-minimal-build-10-2 \
-        cuda-libraries-dev-10-2 \
-        libcudnn8-dev \
-        build-essential \
-        cmake \
-        git \
-        gfortran \
-        libatlas-base-dev \
-        libavcodec-dev \
-        libavformat-dev \
-        libavresample-dev \
-        libeigen3-dev \
-        libgstreamer-plugins-base1.0-dev \
-        libgstreamer-plugins-good1.0-dev \
-        libgstreamer1.0-dev \
-        libjpeg-dev \
-        libjpeg8-dev \
-        libjpeg-turbo8-dev \
-        liblapack-dev \
-        liblapacke-dev \
-        libopenblas-dev \
-        libpng-dev \
-        libpostproc-dev \
-        libswscale-dev \
-        libtbb-dev \
-        libtbb2 \
-        libtesseract-dev \
-        libtiff-dev \
-        libv4l-dev \
-        libx264-dev \
-        pkg-config \
-        python3-dev \
-        python3-numpy \
-        python3-pil \
-        python3-matplotlib \
-        v4l-utils \
-        zlib1g-dev
+    # mv /etc/apt/sources.list.d/nvidia-l4t-apt-source.list /etc/apt/
+    # apt-get update && apt-get install -y --no-install-recommends \
+    #     ca-certificates
+    # mv /etc/apt/nvidia-l4t-apt-source.list /etc/apt/sources.list.d
+    # apt-get update && apt-get install -y --no-install-recommends \
+    #     gosu \
+    #     cuda-compiler-10-2 \
+    #     cuda-minimal-build-10-2 \
+    #     cuda-libraries-dev-10-2 \
+    #     libcudnn8-dev \
+    #     build-essential \
+    #     cmake \
+    #     git \
+    #     gfortran \
+    #     libatlas-base-dev \
+    #     libavcodec-dev \
+    #     libavformat-dev \
+    #     libavresample-dev \
+    #     libeigen3-dev \
+    #     libgstreamer-plugins-base1.0-dev \
+    #     libgstreamer-plugins-good1.0-dev \
+    #     libgstreamer1.0-dev \
+    #     libjpeg-dev \
+    #     libjpeg8-dev \
+    #     libjpeg-turbo8-dev \
+    #     liblapack-dev \
+    #     liblapacke-dev \
+    #     libopenblas-dev \
+    #     libpng-dev \
+    #     libpostproc-dev \
+    #     libswscale-dev \
+    #     libtbb-dev \
+    #     libtbb2 \
+    #     libtesseract-dev \
+    #     libtiff-dev \
+    #     libv4l-dev \
+    #     libx264-dev \
+    #     pkg-config \
+    #     python3-dev \
+    #     python3-numpy \
+    #     python3-pil \
+    #     python3-matplotlib \
+    #     v4l-utils \
+    #     zlib1g-dev
 }
 
 configure () {
@@ -145,7 +149,7 @@ configure () {
 
     cd ${BUILD_TMP}/opencv
     mkdir build && chown builder:builder build
-    cd build
+    cd build && mkdir downloads && cp -r ${BUILD_TMP}/opencv_3rdparty/* ./downloads
     gosu builder cmake ${CMAKEFLAGS} ..
 }
 

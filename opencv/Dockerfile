@@ -16,6 +16,51 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 WORKDIR /usr/local/src/build_opencv
 
+RUN mv /etc/apt/sources.list.d/nvidia-l4t-apt-source.list /etc/apt/
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        ca-certificates
+RUN mv /etc/apt/nvidia-l4t-apt-source.list /etc/apt/sources.list.d
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        gosu \
+        cuda-compiler-10-2 \
+        cuda-minimal-build-10-2 \
+        cuda-libraries-dev-10-2 \
+        libcudnn8-dev \
+        build-essential \
+        cmake \
+        git \
+        gfortran \
+        libatlas-base-dev \
+        libavcodec-dev \
+        libavformat-dev \
+        libavresample-dev \
+        libeigen3-dev \
+        libgstreamer-plugins-base1.0-dev \
+        libgstreamer-plugins-good1.0-dev \
+        libgstreamer1.0-dev \
+        libjpeg-dev \
+        libjpeg8-dev \
+        libjpeg-turbo8-dev \
+        liblapack-dev \
+        liblapacke-dev \
+        libopenblas-dev \
+        libpng-dev \
+        libpostproc-dev \
+        libswscale-dev \
+        libtbb-dev \
+        libtbb2 \
+        libtesseract-dev \
+        libtiff-dev \
+        libv4l-dev \
+        libx264-dev \
+        pkg-config \
+        python3-dev \
+        python3-numpy \
+        python3-pil \
+        python3-matplotlib \
+        v4l-utils \
+        zlib1g-dev
+
 COPY build_opencv.sh .
 
 RUN /bin/bash build_opencv.sh
