@@ -4,7 +4,7 @@ FROM nvcr.io/nvidia/l4t-base:${JETPACK_VERSION}
 
 COPY ubuntu18.04.list /etc/apt/sources.list
 COPY nvidia-l4t-apt-source.list /etc/apt/sources.list.d/
-COPY jetson-ota-public.asc /etc/apt/trusted.gpg.d/jetson-ota-public.asc
+COPY jetson-ota-public.asc /etc/apt/trusted.gpg.d/
 ### build argumements ###
 # change these here or with --build-arg FOO="BAR" at build time
 ARG OPENCV_VERSION="4.4.0"
