@@ -6,5 +6,5 @@ readonly OPENCV_VERSION="4.4.0"
 
 # build the image
 docker build \
-    -t qomolo/qeye:jp-${JETPACK_VERSION}-cv-${OPENCV_VERSION}-caffe \
+    -t harbor.qomolo.com/arm64/qeye:jp-${JETPACK_VERSION}-cv-${OPENCV_VERSION}-caffe \
     . 2>&1 | tee build.log

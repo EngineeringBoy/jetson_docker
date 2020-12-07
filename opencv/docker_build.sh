@@ -15,5 +15,5 @@ docker build \
     --build-arg OPENCV_BUILD_JOBS=$(nproc) \
     --build-arg JETPACK_VERSION=${JETPACK_VERSION} \
     --build-arg OPENCV_VERSION=${OPENCV_VERSION} \
-    -t qomolo/qeye:jp-${JETPACK_VERSION}-cv-${OPENCV_VERSION} \
+    -t harbor.qomolo.com/arm64/qeye:jp-${JETPACK_VERSION}-cv-${OPENCV_VERSION} \
     . 2>&1 | tee build.log

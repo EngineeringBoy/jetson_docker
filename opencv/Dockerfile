@@ -1,6 +1,6 @@
 ARG JETPACK_VERSION="r32.4.4"
 
-FROM nvcr.io/nvidia/l4t-base:${JETPACK_VERSION}
+FROM harbor.qomolo.com/arm64/qeye:${JETPACK_VERSION}
 
 COPY ubuntu18.04.list /etc/apt/sources.list
 COPY nvidia-l4t-apt-source.list /etc/apt/sources.list.d/

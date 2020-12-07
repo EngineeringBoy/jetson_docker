@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=qomolo/qeye:jp-r32.4.4-cv-4.4.0
+ARG BASE_IMAGE=harbor.qomolo.com/arm64/qeye:jp-r32.4.4-cv-4.4.0
 FROM ${BASE_IMAGE}
 
 WORKDIR /cmake
