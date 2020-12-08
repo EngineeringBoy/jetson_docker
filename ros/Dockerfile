@@ -1,6 +1,6 @@
 FROM harbor.qomolo.com/arm64/qeye:jp-r32.4.4-cv-4.4.0-caffe as opencv_caffe
 
-FROM harbor.qomolo.com/arm64/qeye:latest
+FROM harbor.qomolo.com/arm64/qeye:deepstream-base
 
 ENV DEBIAN_FRONTEND=noninteractive
 
