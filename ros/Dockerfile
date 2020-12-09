@@ -132,4 +132,8 @@ COPY build_yaml.sh /build_yaml.sh
 RUN sh /build_yaml.sh
 RUN rm /workspace -rf && rm /repo_signing.key /build_yaml.sh
 
+RUN apt-get update && \
+    apt-get install -y ros-eloquent-image-transport-plugins && \
+    rm -rf /var/lib/apt/lists/*
+
 WORKDIR /
