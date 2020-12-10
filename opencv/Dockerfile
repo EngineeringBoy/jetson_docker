@@ -1,4 +1,4 @@
-ARG JETPACK_VERSION="r32.4.4"
+ARG JETPACK_VERSION="jp-r32.4.4"
 
 FROM harbor.qomolo.com/arm64/qeye:${JETPACK_VERSION}
 
