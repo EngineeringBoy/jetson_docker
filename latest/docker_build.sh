@@ -1,11 +1,7 @@
 set -ex
 
 # just change these to bump the version
-readonly VERSION="bazel"
-
-# get gpg key
-cp /etc/apt/sources.list.d/nvidia-l4t-apt-source.list .
-cp /etc/apt/trusted.gpg.d/jetson-ota-public.asc .
+readonly VERSION="latest"
 
 # build the image
 docker build \
