@@ -80,7 +80,7 @@ RUN apt-key add /repo_signing.key
 RUN sh -c 'echo "deb [arch=$(dpkg --print-architecture)] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/ros2-latest.list'
 
 # install ROS packages
-RUN apt-get update && \
+RUN apt-get update --fix-missing && \
     apt-get install -y --no-install-recommends \
     ros-eloquent-ros-base \
     ros-eloquent-launch-xml \
@@ -98,7 +98,9 @@ RUN apt-get update && \
     ros-eloquent-control-msgs \
     ros-eloquent-realtime-tools \
     ros-eloquent-image-transport \
+    ros-eloquent-image-transport-plugins \
     ros-eloquent-camera-info-manager \
+    supervisor \
     libpython3-dev \
     python3-colcon-common-extensions \
     python3-rosdep \
@@ -132,8 +134,7 @@ COPY build_yaml.sh /build_yaml.sh
 RUN sh /build_yaml.sh
 RUN rm /workspace -rf && rm /repo_signing.key /build_yaml.sh
 
-RUN apt-get update && \
-    apt-get install -y ros-eloquent-image-transport-plugins && \
-    rm -rf /var/lib/apt/lists/*
 
 WORKDIR /
+
+CMD ["/usr/bin/supervisord"]

@@ -1,7 +1,7 @@
 set -ex
 
 # just change these to bump the version
-readonly VERSION="latest"
+readonly VERSION="jp-r32.4.4-cv-4.4.0-caffe-ros-eloquent"
 
 # get gpg key
 cp /etc/apt/sources.list.d/nvidia-l4t-apt-source.list .
