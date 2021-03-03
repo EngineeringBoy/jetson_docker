@@ -82,24 +82,24 @@ RUN sh -c 'echo "deb [arch=$(dpkg --print-architecture)] http://packages.ros.org
 # install ROS packages
 RUN apt-get update --fix-missing && \
     apt-get install -y --no-install-recommends \
-    ros-eloquent-ros-base \
-    ros-eloquent-launch-xml \
-    ros-eloquent-launch-yaml \
-    ros-eloquent-vision-msgs \
-    ros-eloquent-nav-2d-msgs \
-    ros-eloquent-nav-2d-utils \
-    ros-eloquent-nav2-msgs \
-    ros-eloquent-nav2-costmap-2d \
-    ros-eloquent-nav2-behavior-tree \
-    ros-eloquent-nav2-core \
-    ros-eloquent-dwb-msgs \
-    ros-eloquent-behaviortree-cpp-v3 \
-    ros-eloquent-example-interfaces \
-    ros-eloquent-control-msgs \
-    ros-eloquent-realtime-tools \
-    ros-eloquent-image-transport \
-    ros-eloquent-image-transport-plugins \
-    ros-eloquent-camera-info-manager \
+    ros-dashing-ros-base \
+    # ros-dashing-launch-xml \
+    # ros-dashing-launch-yaml \
+    # ros-dashing-vision-msgs \
+    # ros-dashing-nav-2d-msgs \
+    # ros-dashing-nav-2d-utils \
+    # ros-dashing-nav2-msgs \
+    # ros-dashing-nav2-costmap-2d \
+    # ros-dashing-nav2-behavior-tree \
+    # ros-dashing-nav2-core \
+    # ros-dashing-dwb-msgs \
+    # ros-dashing-behaviortree-cpp-v3 \
+    # ros-dashing-example-interfaces \
+    # ros-dashing-control-msgs \
+    # ros-dashing-realtime-tools \
+    # ros-dashing-image-transport \
+    # ros-dashing-image-transport-plugins \
+    # ros-dashing-camera-info-manager \
     supervisor \
     libpython3-dev \
     python3-colcon-common-extensions \
@@ -132,7 +132,8 @@ RUN apt-get update && \
 
 COPY build_yaml.sh /build_yaml.sh
 RUN sh /build_yaml.sh
-RUN rm /workspace -rf && rm /repo_signing.key /build_yaml.sh
+# RUN rm /workspace -rf && rm /repo_signing.key /build_yaml.sh
+RUN rm /workspace -rf && rm /build_yaml.sh
 
 
 WORKDIR /

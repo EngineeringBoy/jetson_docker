@@ -1,7 +1,7 @@
 set -ex
 
 # just change these to bump the version
-readonly VERSION="latest"
+readonly VERSION="full"
 
 # build the image
 docker build \
